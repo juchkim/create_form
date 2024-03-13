@@ -8,4 +8,20 @@ class App extends CI_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'url'));
     }
+
+    public function index()
+    {
+        $this->load->view('common/header');
+        $this->load->view('common/nav');
+        $this->load->view('page/index');
+        $this->load->view('common/footer');
+    }
+
+    public function form()
+    {
+        $this->load->view('common/header');
+        $this->load->view('common/nav');
+        $this->load->view('page/form');
+        $this->load->view('common/footer');
+    }
 }
