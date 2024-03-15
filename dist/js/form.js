@@ -63,6 +63,10 @@ const addInputAdd = (theme)=>{
   switch (theme.toString()) {
     case '1':
       themeTag = `
+      <label class="input input-bordered flex items-center gap-2 mb-3">
+        제목
+        <input type="text" required class="grow title_area" onchange="onFillConfirm()"/>
+      </label>
       <label class="input input-bordered flex items-center gap-2">
         다중선택
         <input type="text" required class="grow input_area" placeholder="콤마로 구분" onchange="onFillConfirm()"/>
@@ -70,6 +74,10 @@ const addInputAdd = (theme)=>{
       break;
     case '2':
       themeTag = `
+      <label class="input input-bordered flex items-center gap-2 mb-3">
+        제목
+        <input type="text" required class="grow title_area" onchange="onFillConfirm()"/>
+      </label>
       <label class="input input-bordered flex items-center gap-2">
         단일선택
         <input type="text" required class="grow input_area" placeholder="콤마로 구분" onchange="onFillConfirm()"/>
@@ -106,14 +114,24 @@ const onHandleSubmit = () => {
   let data_obj_arr = [];
   for(let item of form_listEl){
     try{
-      item.querySelector('.input_area');
       let flow = item.querySelector('.flow').value;
       let theme = item.querySelector('.theme').value;
       let value = item.querySelector('.input_area').value;
-      const obj = {
-        flow,
-        theme,
-        value
+      let obj = {};
+      if(theme === '1' || theme === '2'){
+        let title = item.querySelector('.title_area').value;
+        obj = {
+          flow,
+          theme,
+          value,
+          title,
+        }
+      }else{
+        obj = {
+          flow,
+          theme,
+          value,
+        }
       }
       data_obj_arr.push(obj);
     }
