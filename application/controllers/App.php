@@ -39,8 +39,22 @@ class App extends CI_Controller {
         for($i=2;$i<count($src_obj_arr); $i++){
             array_push($src_arr, (array)$src_obj_arr[$i]);
         }
-        $preview_param = array("row"=>$res, 'src_arr'=>$src_arr);
+        $preview_param = array("row"=>$res, 'src_arr'=>$src_arr, 'idx'=>$idx);
         $this->load->view('page/preview',$preview_param);
         $this->load->view('common/footer');
+    }
+
+    public function page()
+    {
+        $idx = $this->input->get('idx');
+        $res = $this->FormDataModel->select_one_table($idx);
+        $src_obj_arr = json_decode($res['src']);
+        $src_arr = array();
+        for($i=2;$i<count($src_obj_arr); $i++){
+            array_push($src_arr, (array)$src_obj_arr[$i]);
+        }
+        $preview_param = array("row"=>$res, 'src_arr'=>$src_arr, 'idx'=>$idx);
+        $this->load->view('common/header');
+        $this->load->view('page/view',$preview_param);
     }
 }

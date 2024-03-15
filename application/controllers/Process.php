@@ -34,4 +34,19 @@ class Process extends CI_Controller {
 			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.href=`".base_url()."App`</script>";
 		}
 	}
+
+	public function save_data()
+	{
+		try {
+			$form_data = $this->input->post('form_data');
+			$idx = $this->input->post('idx');
+			$src = $form_data;
+			$sql = "INSERT INTO data_tb(tb_idx, data_str) values(?,?)";
+			$param = array($idx, $src);
+			$this->db->query($sql,$param);
+			echo "<script>alert('등록이 되었습니다');location.reload()`</script>";
+		} catch (Exception $e) {
+			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.reload()`</script>";
+		}
+	}
 }
