@@ -15,7 +15,7 @@
               $value_arr = explode(',',$data['value']); ?>
               <div class="form-control w-full">
                 <div class="label">
-                  <input type="hidden" class="title_area" value="<?=$data['title']?>">
+                  <input type="hidden" class="title_area" value="<?=isset($data['title'])?$data['title']:''?>">
                   <span class="label-text"><?=isset($data['title'])? $data['title'] : ''?></span>
                 </div>
                 <div class="flex gap-2">

@@ -7,6 +7,7 @@
         <th>Title</th>
         <th>Edit</th>
         <th>Preview</th>
+        <th>Data list</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
         <td><?=$row['title']?></td>
         <td><a href="<?=base_url().'App/form?idx='.$row['idx']?>" class="underline text-green-500">edit</a></td>
         <td><a href="<?=base_url().'App/preview?idx='.$row['idx']?>" class="underline text-blue-500">preview</a></td>
+        <td><a href="<?=base_url().'App/data_view?idx='.$row['idx']?>" class="underline text-red-500">data view</a></td>
       </tr>
       <?php } ?>
     </tbody>

@@ -57,4 +57,29 @@ class App extends CI_Controller {
         $this->load->view('common/header');
         $this->load->view('page/view',$preview_param);
     }
+
+    public function data_view()
+    {
+        $idx = $this->input->get('idx');
+        $table_res = $this->FormDataModel->select_one_table($idx);
+        $title = $table_res['title'];
+
+        $res = $this->FormDataModel->select_data_one_table($idx);
+        $list = $res['list'];
+        $data_arr = array();
+        foreach($list as $key => $row){
+            $list_data = json_decode($row['data_str']);
+            $temp_arr = array();
+            foreach ($list_data as $key => $item) {
+                array_push($temp_arr, (array)$item);
+            }
+            array_push($data_arr, $temp_arr);
+        }
+        $data_param = array("list"=>$data_arr,'title'=>$title,'idx'=>$idx);
+        $this->load->view('common/header');
+        $this->load->view('common/nav');
+
+        $this->load->view('page/data_view', $data_param);
+        $this->load->view('common/footer');
+    }
 }
