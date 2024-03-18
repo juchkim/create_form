@@ -45,7 +45,7 @@ const onHandleClickAdd = () =>{
   }
   addInputAdd(value);
 }
-let elementFlow = 3;
+let elementFlow = 2;
 const addInputAdd = (theme)=>{
   let commonTag = `
   <div class="badge badge-error gap-2 absolute cursor-pointer" style="top:-10px; left:10px;" onclick="onDeleteSection(this)">
@@ -57,7 +57,7 @@ const addInputAdd = (theme)=>{
   `;
   elementFlow++;
   let addEl = document.createElement('div');
-  addEl.classList.add('data_section','border', 'mt-3', 'relative');
+  addEl.classList.add('data_section','border', 'mt-3', 'relative', 'border-slate-300');
   let themeTag = "";
 
   switch (theme.toString()) {
@@ -139,6 +139,7 @@ const onHandleSubmit = () => {
       console.log(e);
     }
   }
+
   let data = JSON.stringify(data_obj_arr);
   const form_dataEl = document.querySelector('.form_data');
   form_dataEl.value = data;

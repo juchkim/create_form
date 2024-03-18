@@ -7,7 +7,7 @@ class FormDataModel extends CI_Model {
 
   public function select_all_table()
   {
-    $sql = "select * from create_tb";
+    $sql = "select * from create_tb where is_deleted='n'";
     $list = $this->db->query($sql)->result_array();
     $result = array("list"=>$list);
     return $result;

@@ -13,7 +13,7 @@ class App extends CI_Controller {
     public function index()
     {
         $this->load->view('common/header');
-        $this->load->view('common/nav');
+        $this->navTag();
         $res = $this->FormDataModel->select_all_table();
         $index_param = array("list"=>$res['list']);
         $this->load->view('page/index', $index_param);
@@ -22,21 +22,34 @@ class App extends CI_Controller {
 
     public function form()
     {
+        $idx = $this->input->get('idx');
+        $res = $this->FormDataModel->select_one_table($idx);
+        $src_arr = array();
+        if(isset($res['src'])){
+            $src_obj_arr = json_decode($res['src']);
+            for($i=1;$i<count($src_obj_arr); $i++){
+                array_push($src_arr, (array)$src_obj_arr[$i]);
+            }
+        }
+        $form_param = array("row"=>$res, 'src_arr'=>$src_arr, 'idx'=>$idx);
+
         $this->load->view('common/header');
-        $this->load->view('common/nav');
-        $this->load->view('page/form');
+        $this->navTag();
+
+        $this->load->view('page/form', $form_param);
         $this->load->view('common/footer');
     }
 
     public function preview()
     {
         $this->load->view('common/header');
-        $this->load->view('common/nav');
+        $this->navTag();
+
         $idx = $this->input->get('idx');
         $res = $this->FormDataModel->select_one_table($idx);
         $src_obj_arr = json_decode($res['src']);
         $src_arr = array();
-        for($i=2;$i<count($src_obj_arr); $i++){
+        for($i=1;$i<count($src_obj_arr); $i++){
             array_push($src_arr, (array)$src_obj_arr[$i]);
         }
         $preview_param = array("row"=>$res, 'src_arr'=>$src_arr, 'idx'=>$idx);
@@ -50,12 +63,20 @@ class App extends CI_Controller {
         $res = $this->FormDataModel->select_one_table($idx);
         $src_obj_arr = json_decode($res['src']);
         $src_arr = array();
-        for($i=2;$i<count($src_obj_arr); $i++){
+        for($i=1;$i<count($src_obj_arr); $i++){
             array_push($src_arr, (array)$src_obj_arr[$i]);
         }
         $preview_param = array("row"=>$res, 'src_arr'=>$src_arr, 'idx'=>$idx);
         $this->load->view('common/header');
         $this->load->view('page/view',$preview_param);
+    }
+
+    public function finish()
+    {
+        $idx = $this->input->get('idx');
+        $this->load->view('common/header');
+        $finishParam = array("idx" => $idx);
+        $this->load->view('page/finish', $finishParam); 
     }
 
     public function data_view()
@@ -77,9 +98,15 @@ class App extends CI_Controller {
         }
         $data_param = array("list"=>$data_arr,'title'=>$title,'idx'=>$idx);
         $this->load->view('common/header');
-        $this->load->view('common/nav');
-
+        $this->navTag();
         $this->load->view('page/data_view', $data_param);
         $this->load->view('common/footer');
+    }
+
+    private function navTag()
+    {
+        $res = $this->FormDataModel->select_all_table();
+        $nav_param = array("list"=>$res['list']);
+        $this->load->view('common/nav', $nav_param);
     }
 }

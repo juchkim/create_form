@@ -23,11 +23,18 @@ class Process extends CI_Controller {
 				array_push($it_data, (array)$json_data[$i]);
 			}
 			$title = $it_data[0]['value'];
-			$tb_name = $it_data[1]['value'];
-			var_dump($form_data);
+			// $tb_name = $it_data[1]['value'];
 			$src = $form_data;
-			$sql = "INSERT INTO  create_tb(tb_name, title, src) values(?,?,?)";
-			$param = array($title, $tb_name, $src);
+			$idx = $this->input->post('idx');
+			$sql = "";
+			$param = array();
+			if($idx==null){
+				$sql = "INSERT INTO  create_tb(title, src) values(?,?)";
+				$param = array($title, $src);
+			}else{
+				$sql = "update create_tb set title=?, src=? where idx=?";
+				$param = array($title, $src,$idx);
+			}
 			$this->db->query($sql,$param);
 			echo "<script>alert('등록이 되었습니다');location.href=`".base_url()."App`</script>";
 		} catch (Exception $e) {
@@ -44,9 +51,22 @@ class Process extends CI_Controller {
 			$sql = "INSERT INTO data_tb(tb_idx, data_str) values(?,?)";
 			$param = array($idx, $src);
 			$this->db->query($sql,$param);
-			echo "<script>alert('등록이 되었습니다');location.reload()`</script>";
+			echo "<script>location.href=`".base_url()."App/finish?idx=$idx`</script>";
 		} catch (Exception $e) {
-			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.reload()`</script>";
+			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.href=`".base_url()."App`</script>";
+		}
+	}
+
+	public function deleteForm()
+	{
+		try {
+			$idx = $this->input->get('idx');
+			$sql = "update create_tb set is_deleted='y' where idx=?";
+			$param = array($idx);
+			$this->db->query($sql,$param);
+			echo "<script>alert('삭제가 되었습니다');location.href=`".base_url()."App`</script>";
+		} catch (Exception $e) {
+			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.href=`".base_url()."App`</script>";
 		}
 	}
 }

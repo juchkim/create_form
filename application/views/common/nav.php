@@ -1,30 +1,18 @@
-<div class="drawer mb-3">
-  <input id="my-drawer-3" type="checkbox" class="drawer-toggle" /> 
-  <div class="drawer-content flex flex-col">
-    <!-- Navbar -->
-    <div class="w-full navbar bg-base-300">
-      <div class="flex-none lg:hidden">
-        <label for="my-drawer-3" aria-label="open sidebar" class="btn btn-square btn-ghost">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </label>
-      </div> 
-      <div class="flex-1 px-2 mx-2">Navbar Title</div>
-      <div class="flex-none hidden lg:block">
-        <ul class="menu menu-horizontal">
-          <!-- Navbar menu content here -->
-          <li><a href="<?=base_url()?>app/form">작성하기</a></li>
-          <li><a>Navbar Item 2</a></li>
+<div class="navbar bg-base-300 rounded-box">
+  <div class="flex-1 px-2 lg:flex-none">
+    <a class="text-lg font-bold" href="<?=base_url()?>">Main</a>
+  </div> 
+  <div class="flex justify-end flex-1 px-2">
+    <div class="flex items-stretch">
+      <a class="btn btn-ghost rounded-btn" href="<?=base_url()?>app/form">작성하기</a>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost rounded-btn">List</div>
+        <ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+          <?php foreach ($list as $key => $row) {?>
+            <li class="break-all"><a href="<?=base_url().'App/preview?idx='.$row['idx']?>"><?=$row['title']?></a></li>
+          <?php } ?>
         </ul>
       </div>
     </div>
-    <!-- Page content here -->
-  </div> 
-  <div class="drawer-side">
-    <label for="my-drawer-3" aria-label="close sidebar" class="drawer-overlay"></label> 
-    <ul class="menu p-4 w-80 min-h-full bg-base-200">
-      <!-- Sidebar content here -->
-      <li><a href="<?=base_url()?>app/form">작성하기</a></li>
-      <li><a>Sidebar Item 2</a></li>
-    </ul>
   </div>
 </div>
