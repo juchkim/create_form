@@ -1,5 +1,5 @@
 <div class="flex flex-col items-center">
-<div class="card max-w-4xl w-full bg-base-100 shadow-xl">
+<div class="max-w-4xl w-full bg-base-100 shadow-xl">
   <div class="card-body">
     <h2 class="card-title"><?=$row['title']?></h2>
     <hr/>
