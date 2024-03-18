@@ -1,5 +1,11 @@
 <div class="flex flex-col gap-2 p-3">
+  <div class="flex items-start gap-3 ">
+    <input type="file" id="imgInput" class="file-input file-input-bordered w-full max-w-xs" />
+    <img id="image_section" src="<?=isset($row['thumnail'])?base_url().'uploads/'.$row['thumnail']:""?>" alt="your image" class="h-52"/>
+    <button class="btn" type="button" onclick="fileUpload()">파일 업로드</button>
+  </div>
   <form class="form_area flex flex-col gap-2" action="<?=base_url()?>process/send_form_data" method="post">
+    <input type="hidden" name="thumnail" class="thumnail" value="<?=isset($row['thumnail'])? $row['thumnail']:""?>"/>
     <input type="hidden" name="form_data" class="form_data"/>
     <div class="data_section">
       <input type="hidden" class="flow" value="1" />
@@ -77,4 +83,4 @@
     <?php } ?>
   </div>
 </div>
-<script src="<?=base_url()?>dist/js/form.js?v=1"></script>
+<script src="<?=base_url()?>dist/js/form.js?v=2"></script>

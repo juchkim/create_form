@@ -1,5 +1,6 @@
 <div class="flex flex-col items-center">
   <div class="max-w-4xl w-full bg-base-100 shadow-xl">
+    <img src="<?=base_url()?>uploads/<?=$row['thumnail']?>" class="w-full mb-3" alt="Responsive image">
     <div class="navbar rounded-t-xl" style="background-color:rgb(25, 118, 210);">
       <a class="btn btn-ghost text-xl text-white"><?=$row['title']?></a>
     </div>

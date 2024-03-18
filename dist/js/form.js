@@ -145,3 +145,57 @@ const onHandleSubmit = () => {
   form_dataEl.value = data;
   form_areaEl.submit();
 }
+
+function getImageFiles(e) {
+  const files = e.currentTarget.files;
+  const file = files[0];
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    createElement(e, file);
+  };
+  reader.readAsDataURL(file);
+}
+
+function createElement(e, file) {
+  const img = document.querySelector('#image_section');
+  img.setAttribute('src', e.target.result);
+  img.setAttribute('data-file', file.name);
+}
+
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+   var reader = new FileReader();
+   
+   reader.onload = function (e) {
+    $('#image_section').attr('src', e.target.result);  
+   }
+   
+   reader.readAsDataURL(input.files[0]);
+   }
+ }
+  
+ // 이벤트를 바인딩해서 input에 파일이 올라올때 (input에 change를 트리거할때) 위의 함수를 this context로 실행합니다.
+ const thumnailEl = document.querySelector('.thumnail');
+ const imgInputEl = document.querySelector('#imgInput');
+ imgInputEl.addEventListener('change', getImageFiles);
+
+ const fileUpload = async() =>{
+  const imgInputEl = document.querySelector('#imgInput');
+  let formData = new FormData();
+  let files = imgInputEl.files[0];
+  formData.append("uploadFile", files);
+  fetch(`${BASEURL}/process/file_upload`, {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    if(result.res){
+      thumnailEl.value = result.file_name;
+      alert('파일 업로드 완료');
+    }
+  })
+  .catch(err => console.log(err));
+ }

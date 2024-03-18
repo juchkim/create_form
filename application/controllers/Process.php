@@ -26,16 +26,18 @@ class Process extends CI_Controller {
 			// $tb_name = $it_data[1]['value'];
 			$src = $form_data;
 			$idx = $this->input->post('idx');
+			$thumnail = $this->input->post('thumnail');
 			$sql = "";
 			$param = array();
 			if($idx==null){
-				$sql = "INSERT INTO  create_tb(title, src) values(?,?)";
-				$param = array($title, $src);
+				$sql = "INSERT INTO  create_tb(title, src, thumnail) values(?,?, ?)";
+				$param = array($title, $src, $thumnail);
 			}else{
-				$sql = "update create_tb set title=?, src=? where idx=?";
-				$param = array($title, $src,$idx);
+				$sql = "update create_tb set title=?, src=?, thumnail=? where idx=?";
+				$param = array($title, $src, $thumnail, $idx);
 			}
 			$this->db->query($sql,$param);
+
 			echo "<script>alert('등록이 되었습니다');location.href=`".base_url()."App`</script>";
 		} catch (Exception $e) {
 			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.href=`".base_url()."App`</script>";
@@ -96,5 +98,27 @@ class Process extends CI_Controller {
 		$hashed = base64_encode(hash('sha256', $password, true));
 		$encrpt = base64_encode(hash('sha512', $hashed, true));
 		return $encrpt;
+	}
+
+	public function file_upload()
+	{
+		$config['upload_path'] = './uploads/';
+		$config['allowed_types'] = 'gif|jpg|png';
+		$config['max_size']	= '100';
+		$config['max_width']  = '1024';
+		$config['max_height']  = '768';
+		$config['encrypt_name']=true;
+		
+		$this->load->library('upload', $config);
+	
+		if ( ! $this->upload->do_upload('uploadFile'))
+		{
+			echo json_encode(array('res'=>false));
+		}	
+		else
+		{
+			$data = $this->upload->data();
+			echo json_encode(array('res'=>true, 'file_name'=>$data['file_name']));
+		}
 	}
 }
