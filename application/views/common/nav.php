@@ -4,6 +4,8 @@
   </div> 
   <div class="flex justify-end flex-1 px-2">
     <div class="flex items-stretch">
+      <a class="btn btn-ghost rounded-btn" href="<?=base_url()?>process/logout">로그아웃</a>
+
       <a class="btn btn-ghost rounded-btn" href="<?=base_url()?>app/form">작성하기</a>
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost rounded-btn">List</div>

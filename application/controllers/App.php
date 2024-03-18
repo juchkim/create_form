@@ -10,8 +10,27 @@ class App extends CI_Controller {
         $this->load->model('FormDataModel');
     }
 
+    private function loginConfirm()
+    {
+        return isset($_SESSION['id']) && $_SESSION['id']=='admin';
+    }
+
+    public function loginPage()
+    {
+        $res = $this->loginConfirm();
+        if($res){
+            header('Location:'.base_url().'App');
+        }
+        $this->load->view('common/header');
+        $this->load->view('page/loginPage');
+    }
+
     public function index()
     {
+        $res = $this->loginConfirm();
+        if(!$res){
+            header('Location:'.base_url().'App/loginPage');
+        }
         $this->load->view('common/header');
         $this->navTag();
         $res = $this->FormDataModel->select_all_table();
@@ -22,6 +41,10 @@ class App extends CI_Controller {
 
     public function form()
     {
+        $res = $this->loginConfirm();
+        if(!$res){
+            header('Location:'.base_url().'App/loginPage');
+        }
         $idx = $this->input->get('idx');
         $res = $this->FormDataModel->select_one_table($idx);
         $src_arr = array();
@@ -42,6 +65,10 @@ class App extends CI_Controller {
 
     public function preview()
     {
+        $res = $this->loginConfirm();
+        if(!$res){
+            header('Location:'.base_url().'App/loginPage');
+        }
         $this->load->view('common/header');
         $this->navTag();
 
@@ -81,6 +108,11 @@ class App extends CI_Controller {
 
     public function data_view()
     {
+        $res = $this->loginConfirm();
+        if(!$res){
+            header('Location:'.base_url().'App/loginPage');
+        }
+
         $idx = $this->input->get('idx');
         $table_res = $this->FormDataModel->select_one_table($idx);
         $title = $table_res['title'];

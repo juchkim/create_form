@@ -69,4 +69,32 @@ class Process extends CI_Controller {
 			echo "<script>alert('서버에 오류가 발생 되었습니다.');location.href=`".base_url()."App`</script>";
 		}
 	}
+
+	public function login()
+	{
+		$id = $this->input->post('id');
+		$encrpt_id = $this->hash_password($id);
+		$pwd = $this->input->post('pwd');
+		$encrpt_pwd = $this->hash_password($pwd);
+		if(
+			$encrpt_id == "Sod5VRUQWQALR2rj8SNwloRQ1UaehIpYLcUoIpQmIWNmULysNtaKZjbopmnpuu9w0rab2jNMMCcsMYxFcZ65pQ==" 
+		&&
+			$encrpt_pwd == "s/DRVKVzrEJWv1rTGsd/b243u6XTFOWdeZ0rfgNXUkvCHZ+q906NI83OOf1K5QMdWflFLe20U5KuGwZ2okuy9A==" 
+		){
+			$_SESSION['id']=$id;
+			echo "<script>location.href=`".base_url()."App`</script>";
+		}
+	}
+
+	public function logout()
+	{
+		session_destroy();
+    echo "<script>location.href=`".base_url()."App`</script>";
+	}
+
+	private function hash_password($password){
+		$hashed = base64_encode(hash('sha256', $password, true));
+		$encrpt = base64_encode(hash('sha512', $hashed, true));
+		return $encrpt;
+	}
 }
