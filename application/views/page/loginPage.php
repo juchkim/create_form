@@ -11,7 +11,7 @@
         <input type="password" name="pwd" class="grow" value="" placeholder="password" />
       </label>
       <div class="card-actions w-full">
-        <button class="btn btn-primary w-full">Buy Now</button>
+        <button class="btn btn-primary w-full">로그인</button>
       </div>
     </form>
   </div>
