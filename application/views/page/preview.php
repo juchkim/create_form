@@ -87,6 +87,17 @@
           </div>
           <input type="text" placeholder="Type here" class="input input-bordered w-full" />
         </label>
+        <div role="alert" class="alert shadow-lg mt-3 mb-3">
+          <div>
+            <h2 class="font-bold">개인정보 수집·이용 동의서</h2>
+            <div class="text-md break-keep">
+              1. 수집하는 개인정보 항목 : 성명, 연락처 <br/>
+              2. 개인정보 수집 및 이용 목적 : 상담<br/> 
+              3. 개인정보의 보유 및 이용기간 : 동의 후 1년간이며, 삭제 요청시 즉시 파기함 
+              <br/>※ 귀하는 이에 대한 동의를 거부할 수 있습니다. 다만 동의하지 않는 경우 상담 및 교육이 불가함을 알려드립니다.
+              <br/>*개인정보 수집 및 이용에 동의합니다.</div>
+          </div>
+        </div>
         <button type="button" class="btn btn-outline btn-success w-full mt-3">Submit</button>
         <button type="button" onclick="window.open('<?=base_url()?>app/page?idx=<?=$idx?>')" class="btn btn-outline btn-info w-full mt-3">Go to Page</button>
       </form>

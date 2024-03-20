@@ -186,6 +186,7 @@ function readURL(input) {
   let formData = new FormData();
   let files = imgInputEl.files[0];
   formData.append("uploadFile", files);
+  console.log(123123);
   fetch(`${BASEURL}/process/file_upload`, {
     method: 'POST',
     body: formData
@@ -195,6 +196,8 @@ function readURL(input) {
     if(result.res){
       thumnailEl.value = result.file_name;
       alert('파일 업로드 완료');
+    }else{
+      alert('파일 업로드 실패');
     }
   })
   .catch(err => console.log(err));
